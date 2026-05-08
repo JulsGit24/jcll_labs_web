@@ -1,0 +1,97 @@
+.about-page {
+    padding-top: 150px;
+    padding-left: 5vw;
+    padding-right: 5vw;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .content-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        /* or center */
+        width: 100%;
+        max-width: 1200px;
+        gap: 4rem;
+
+        .bio-section {
+            flex: 1;
+            max-width: 600px;
+
+            h2 {
+                font-size: 4rem;
+                margin-bottom: 2rem;
+                text-transform: uppercase;
+                font-weight: 700;
+                line-height: 1;
+            }
+
+            .bio {
+                font-size: 1.5rem;
+                line-height: 1.6;
+                margin-bottom: 3rem;
+                font-weight: 300;
+                opacity: 0.9;
+            }
+        }
+
+        .image-section {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            /* Center image in its column */
+
+            .profile-image-container {
+                width: 100%;
+                max-width: 400px;
+                aspect-ratio: 3/4;
+                background: #222;
+                position: relative;
+                overflow: hidden;
+
+                img {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                    display: block;
+                }
+
+                .placeholder-profile {
+                    display: none;
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+                    background: #333;
+                    color: #888;
+                }
+            }
+        }
+    }
+
+    @media (max-width: 900px) {
+        padding-top: 100px;
+        padding-bottom: 50px;
+
+        .content-container {
+            flex-direction: column-reverse;
+            /* Image on top or bottom? Bio first usually better on mobile */
+            gap: 3rem;
+            align-items: center;
+
+            .bio-section {
+                text-align: center;
+
+                h2 {
+                    font-size: 3rem;
+                }
+            }
+        }
+    }
+}

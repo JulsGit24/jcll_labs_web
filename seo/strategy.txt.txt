@@ -1,0 +1,52 @@
+SEO & Content Strategy Brief: jcll_photography
+1. Core Brand Positioning
+Target Market: Richmond, Virginia (RVA) and surrounding areas (Short Pump, Midlothian, The Fan, Scott’s Addition).
+
+Unique Value Proposition (UVP): High-speed, high-precision photography. We are moving away from the "3-week wait" and focusing on 24–48 hour delivery through a "proprietary digital workflow."
+
+Tone: Professional, modern, efficient, and tech-forward.
+
+2. Keyword Map (Metadata & Headers)
+Please integrate these keywords into the site’s H1s, H2s, and Meta Descriptions.
+
+Primary Page Title: High-Speed Photography Richmond VA | jcll_photography | Express Delivery
+
+Secondary Keywords: * Express headshots Richmond
+
+Fast turnaround commercial photography RVA
+
+Same-day portrait delivery Virginia
+
+Modern digital photography workflow
+
+Real estate photography Richmond (Next-day delivery)
+
+3. On-Page SEO Requirements
+H1 (The Hook): "Premium Photography Delivered at the Speed of Business. Based in Richmond, VA."
+
+H2 (The "Speed" Pillar): "Why Wait? Our proprietary post-production workflow ensures gallery delivery in as little as 24 hours."
+
+Service Descriptions: Use phrases like "Advanced processing," "Streamlined creative pipeline," and "Rapid-response digital assets." Avoid the term "AI"—focus on the benefit (speed) rather than the tool.
+
+4. Technical SEO (Designer Checklist)
+Image Compression: All portfolio images must be uploaded in WebP format. No file should exceed 500kb to ensure lightning-fast mobile loading.
+
+Mobile-First UX: The "Book a Session" or "Inquire" button must be "sticky" or immediately visible on mobile devices.
+
+Local Schema: Please embed LocalBusiness Schema in the footer including:
+
+Business Name: jcll_photography
+
+Location: Richmond, VA
+
+Service Area: Richmond, Midlothian, Glen Allen, Chesterfield. Out of Richmond Area on demand.
+
+5. Conversion & Analytics Setup
+Google Analytics 4 (GA4): Ensure the tracking tag is installed on all pages.
+
+Conversion Tracking: Set up an event for "Contact Form Submissions."
+
+Google Search Console: Verify the site and submit the .xml sitemap once the new structure is live.
+
+6. Portfolio Structure
+The "Speed" Badge: On the portfolio page, add a small UI element or badge to specific projects that says: "Delivered in 24 Hours" or "Express Post-Production." This reinforces the brand promise visually without needing long paragraphs.

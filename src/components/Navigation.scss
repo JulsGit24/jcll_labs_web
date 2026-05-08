@@ -1,0 +1,232 @@
+.main-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2rem 4rem;
+    z-index: 100;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(10px);
+    color: white;
+    transition: padding 0.3s ease;
+
+    .logo-container {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 1rem;
+        z-index: 102;
+        text-decoration: none;
+        color: white;
+        /* Above mobile menu backdrop */
+
+        .brand-logo {
+            height: 50px;
+            object-fit: contain;
+            mix-blend-mode: screen;
+        }
+
+        .logo-text {
+            font-size: 1.2rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+    }
+
+    /* Desktop Styles */
+    .desktop-only {
+        display: flex;
+    }
+
+    .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 2rem;
+
+        a {
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            opacity: 0.7;
+            transition: opacity 0.3s ease;
+            position: relative;
+            color: white;
+            text-decoration: none;
+
+            &:hover,
+            &.active {
+                opacity: 1;
+            }
+
+            &.book-btn {
+                border: 1px solid white;
+                padding: 0.5rem 1.2rem;
+                opacity: 1;
+                transition: all 0.3s ease;
+                margin-left: 1rem;
+
+                &:hover {
+                    background: white;
+                    color: black;
+                    transform: scale(1.05);
+                }
+            }
+
+            &.lab-link {
+                font-size: 1.5rem;
+                margin-left: 1rem;
+                opacity: 1;
+                filter: grayscale(1);
+                transition: all 0.3s ease;
+
+                &:hover {
+                    filter: grayscale(0);
+                    transform: scale(1.2) rotate(10deg);
+                    text-shadow: 0 0 10px #00ffff;
+                }
+            }
+        }
+    }
+
+    .lang-switch {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.9rem;
+
+        button {
+            background: none;
+            border: none;
+            color: inherit;
+            cursor: pointer;
+            font-family: inherit;
+            font-weight: bold;
+            opacity: 0.5;
+            transition: opacity 0.3s;
+
+            &.active {
+                opacity: 1;
+            }
+
+            &:hover {
+                opacity: 0.8;
+            }
+        }
+
+        .separator {
+            opacity: 0.5;
+        }
+    }
+
+    .menu-toggle {
+        display: none;
+        /* Hidden on desktop */
+        background: none;
+        border: none;
+        color: white;
+        cursor: pointer;
+        z-index: 102;
+    }
+
+    .mobile-menu {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        /* Hidden by default */
+        width: 300px;
+        height: 100vh;
+        background: #111;
+        z-index: 101;
+        padding: 6rem 2rem 2rem;
+        display: flex;
+        flex-direction: column;
+        transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        box-shadow: -10px 0 30px rgba(0, 0, 0, 0.5);
+
+        &.open {
+            right: 0;
+        }
+
+        .mobile-nav-links {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            margin-bottom: 4rem;
+
+            a {
+                font-size: 1.5rem;
+                text-transform: uppercase;
+                color: white;
+                text-decoration: none;
+                opacity: 0.8;
+
+                &:hover {
+                    opacity: 1;
+                    padding-left: 10px;
+                    transition: padding 0.3s;
+                }
+
+                &.book-btn {
+                    border: 1px solid white;
+                    padding: 1rem;
+                    text-align: center;
+                    margin-top: 1rem;
+
+                    &:hover {
+                        background: white;
+                        color: black;
+                        padding-left: 1rem;
+                    }
+                }
+            }
+        }
+
+        .mobile-lang-switch {
+            display: flex;
+            gap: 1rem;
+
+            button {
+                background: rgba(255, 255, 255, 0.1);
+                border: 1px solid rgba(255, 255, 255, 0.1);
+                color: white;
+                padding: 0.5rem 1rem;
+                flex: 1;
+                cursor: pointer;
+                text-transform: uppercase;
+
+                &.active {
+                    background: white;
+                    color: black;
+                }
+            }
+        }
+    }
+
+    .menu-backdrop {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 100;
+        backdrop-filter: blur(2px);
+    }
+
+    /* Mobile Styles */
+    @media (max-width: 900px) {
+        padding: 1rem 2rem;
+
+        .desktop-only {
+            display: none !important;
+        }
+
+        .menu-toggle {
+            display: block;
+        }
+    }
+}

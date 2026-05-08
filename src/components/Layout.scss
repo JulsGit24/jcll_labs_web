@@ -1,0 +1,11 @@
+/* Layout specific styles if needed */
+.ui-layer {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    z-index: 2;
+    /* Ensure it's above background */
+}
+
+/* Page transitions might need adjustment for scrolling */

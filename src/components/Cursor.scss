@@ -1,0 +1,93 @@
+$color-accent: #ff3333;
+$color-text: #ffffff;
+$color-bg: #000000;
+
+.custom-cursor {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 0;
+    z-index: 9999;
+    mix-blend-mode: normal;
+    pointer-events: none !important;
+    /* Critical: must not capture clicks */
+}
+
+/* Hover state */
+body.hovering .cursor-bubble {
+    transform: translate(-50%, -50%) scale(1.5);
+    background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.9);
+}
+
+.cursor-bubble {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, 0.8);
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: invert(1);
+
+    /* Initial centering will be handled by JS transform, but we center the element itself relative to the coordinate */
+    transform: translate(-50%, -50%);
+
+    pointer-events: none !important;
+    /* Critical: must not capture clicks */
+    transition: transform 0.1s ease-out, width 0.3s, height 0.3s;
+
+    /* Center aim crosshair */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &::after {
+        content: '+';
+        color: rgba(255, 255, 255, 0.8);
+        font-size: 10px;
+        font-weight: lighter;
+    }
+}
+
+/* Hide default cursor */
+/* Hide default cursor on body */
+body {
+    cursor: none;
+}
+
+/* Show system hand cursor on interactive elements */
+a,
+button,
+.clickable,
+input,
+[role="button"],
+.grid-item {
+    cursor: pointer !important;
+}
+
+/* Hide custom cursor on mobile/touch devices */
+@media (hover: none) and (pointer: coarse),
+(max-width: 768px) {
+
+    .custom-cursor,
+    .cursor-bubble {
+        display: none !important;
+    }
+
+    body {
+        cursor: auto !important;
+    }
+
+    /* Reset forced pointer on interactive elements since body is auto */
+    a,
+    button,
+    .clickable,
+    input,
+    [role="button"],
+    .grid-item {
+        cursor: auto !important;
+    }
+}

@@ -1,0 +1,225 @@
+.interact-page {
+    min-height: 100vh;
+    width: 100vw;
+    background-color: #000;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &.no-scroll {
+        overflow: hidden;
+    }
+
+    .canvas-container {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        z-index: 1;
+        cursor: grab;
+
+        &:active {
+            cursor: grabbing;
+        }
+    }
+
+    .floating-ui {
+        position: absolute;
+        z-index: 10;
+        pointer-events: none;
+        /* Let clicks pass through to the 3D canvas */
+        text-align: center;
+        width: 100%;
+    }
+
+    .interact-header {
+        top: 15%;
+
+        h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            color: var(--color-text, #ffffff);
+            font-family: var(--font-primary, sans-serif);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-weight: 700;
+        }
+
+        p {
+            font-size: 1.2rem;
+            color: #ccc;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+    }
+
+    .cursor-hint {
+        bottom: 10%;
+        color: rgba(255, 255, 255, 0.5);
+        font-family: monospace;
+        letter-spacing: 0.3em;
+        font-size: 0.9rem;
+        animation: fadeBlink 3s infinite ease-in-out;
+    }
+
+    /* Drei HTML Overlay styling */
+    .node-popup {
+        pointer-events: none;
+        opacity: 0;
+        transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+        /* Base styles that get overridden by directional classes */
+        transform-origin: center bottom;
+        transform: scale(0.8) translateY(20px);
+
+        &.pos-bottom {
+            transform-origin: center bottom;
+            transform: scale(0.8) translateY(20px);
+
+            &.pos-left {
+                transform-origin: left bottom;
+                transform: scale(0.8) translate(30px, 20px);
+            }
+
+            &.pos-right {
+                transform-origin: right bottom;
+                transform: scale(0.8) translate(-30px, 20px);
+            }
+
+            &.visible {
+                transform: scale(1) translate(0, 0);
+
+                &.pos-left {
+                    transform: scale(1) translate(30px, 0);
+                }
+
+                &.pos-right {
+                    transform: scale(1) translate(-30px, 0);
+                }
+            }
+        }
+
+        &.pos-top {
+            transform-origin: center top;
+            transform: scale(0.8) translateY(-20px);
+
+            &.pos-left {
+                transform-origin: left top;
+                transform: scale(0.8) translate(30px, -20px);
+            }
+
+            &.pos-right {
+                transform-origin: right top;
+                transform: scale(0.8) translate(-30px, -20px);
+            }
+
+            &.visible {
+                transform: scale(1) translate(0, 0);
+
+                &.pos-left {
+                    transform: scale(1) translate(30px, 0);
+                }
+
+                &.pos-right {
+                    transform: scale(1) translate(-30px, 0);
+                }
+            }
+        }
+
+        &.visible {
+            opacity: 1;
+        }
+
+        .node-content {
+            background: rgba(10, 10, 10, 0.85);
+            backdrop-filter: blur(10px);
+            border: 1px solid;
+            border-radius: 12px;
+            width: 300px;
+            text-align: left;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+
+            &.is-home {
+                width: auto;
+                background: rgba(10, 10, 10, 0.9);
+                box-shadow: none !important;
+                border: 2px solid;
+                border-radius: 20px;
+                padding: 0.5rem 1rem;
+
+                .home-tooltip {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    white-space: nowrap;
+                }
+            }
+
+            .preview-image-container {
+                width: 100%;
+                height: 140px;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+
+                .preview-image {
+                    width: 100%;
+                    height: 100%;
+                    background-size: cover;
+                    background-position: center;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+
+                    .no-image-text {
+                        color: rgba(255, 255, 255, 0.3);
+                        font-size: 0.8rem;
+                        text-transform: uppercase;
+                        letter-spacing: 2px;
+                    }
+                }
+            }
+
+            .text-content {
+                padding: 1.5rem;
+
+                h3 {
+                    margin: 0 0 0.5rem 0;
+                    font-size: 1.2rem;
+                    text-transform: uppercase;
+                    letter-spacing: 1px;
+                    font-family: var(--font-primary);
+                }
+
+                p {
+                    margin: 0 0 1rem 0;
+                    font-size: 0.9rem;
+                    line-height: 1.4;
+                    color: #aaa;
+                }
+
+                .btn-hint {
+                    font-size: 0.8rem;
+                    text-transform: uppercase;
+                    letter-spacing: 1px;
+                    font-weight: 700;
+                }
+            }
+        }
+    }
+}
+
+@keyframes fadeBlink {
+
+    0%,
+    100% {
+        opacity: 0.3;
+    }
+
+    50% {
+        opacity: 0.8;
+    }
+}

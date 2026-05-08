@@ -1,0 +1,181 @@
+.animations-page {
+  padding-top: 150px;
+  padding-left: 0;
+  padding-right: 0;
+  padding-bottom: 5rem;
+
+  h2 {
+    font-size: 3rem;
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+    text-align: center;
+  }
+
+  .section-subtitle {
+    font-size: 1.2rem;
+    color: rgba(255, 255, 255, 0.5);
+    text-transform: uppercase;
+    text-align: center;
+    letter-spacing: 0.3em;
+    margin-bottom: 1rem;
+    font-weight: 400;
+  }
+
+  .section-description {
+    text-align: center;
+    color: #888;
+    font-size: 1rem;
+    max-width: 600px;
+    margin: 0 auto 3rem auto;
+    line-height: 1.6;
+    padding: 0 1rem;
+  }
+
+  .diagram-container {
+    position: relative;
+    width: 70%;
+    margin: 0 auto;
+    background: transparent;
+    padding: 1rem 0;
+    overflow: visible;
+  }
+
+  .architecture-svg {
+    width: 100%;
+    height: auto;
+    display: block;
+
+    .diagram-node {
+      transition: transform 0.3s ease;
+    }
+
+    text {
+      user-select: none;
+      pointer-events: none;
+    }
+  }
+
+  .interaction-hint {
+    text-align: center;
+    color: rgba(255, 255, 255, 0.25);
+    font-size: 0.8rem;
+    margin-top: 1.5rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    animation: pulse-hint 3s ease-in-out infinite;
+  }
+
+  @keyframes pulse-hint {
+
+    0%,
+    100% {
+      opacity: 0.25;
+    }
+
+    50% {
+      opacity: 0.5;
+    }
+  }
+
+  @media (max-width: 768px) {
+    padding-top: 120px;
+
+    h2 {
+      font-size: 2rem;
+    }
+
+    .diagram-container {
+      padding: 0.5rem;
+    }
+
+    .section-description {
+      font-size: 0.9rem;
+      margin-bottom: 2rem;
+    }
+  }
+}
+
+/* Portal / Modal Styles - Root Level */
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 9999;
+  background-color: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+}
+
+.info-panel {
+  position: relative;
+  background: rgba(10, 10, 10, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 16px;
+  padding: 2rem;
+  max-width: 420px;
+  width: 100%;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8), 0 0 20px rgba(255, 255, 255, 0.05);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .close-btn {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    background: none;
+    border: none;
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 1.5rem;
+    cursor: pointer;
+    line-height: 1;
+    transition: color 0.2s;
+    padding: 0.5rem;
+
+    &:hover {
+      color: white;
+    }
+  }
+
+  .info-icon {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1rem;
+
+    svg {
+      width: 56px;
+      height: 56px;
+    }
+  }
+
+  h4 {
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+    color: white;
+  }
+
+  .info-sublabel {
+    display: block;
+    text-align: center;
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 0.85rem;
+    margin-bottom: 1rem;
+  }
+
+  p {
+    text-align: center;
+    color: #a0a0a0;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin: 0;
+  }
+}
