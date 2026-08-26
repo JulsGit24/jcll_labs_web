@@ -1,0 +1,48 @@
+{
+  "specVersion": "1.0",
+  "host": {
+    "displayName": "JCLL Labs",
+    "identifier": "jcll.me"
+  },
+  "entries": [
+    {
+      "identifier": "urn:air:jcll.me:site:jcll-labs",
+      "displayName": "JCLL Labs — technology and creative studio, Richmond VA",
+      "description": "A technology and creative studio in Richmond, Virginia. AI consulting, custom software development, and marketing automation for businesses, plus photography, video production, and AI-assisted content generation. Site content is available in English and Spanish.",
+      "type": "text/html",
+      "url": "https://jcll.me/",
+      "representativeQueries": [
+        "who does AI consulting in Richmond, Virginia",
+        "custom software development and marketing automation studio in Richmond VA",
+        "photography and video production services in Richmond, Virginia",
+        "AI-assisted content generation for small business branding",
+        "consultoría en inteligencia artificial y desarrollo de software en Richmond, Virginia"
+      ]
+    },
+    {
+      "identifier": "urn:air:jcll.me:page:photography",
+      "displayName": "JCLL Labs Photography — Richmond, Virginia",
+      "description": "Portrait, studio, on-location, product and pet photography and video production in Richmond, Virginia, also serving Midlothian, Glen Allen and Chesterfield. Booking by email; no minimum retainer stated.",
+      "type": "text/html",
+      "url": "https://jcll.me/photography/",
+      "representativeQueries": [
+        "photographer in Richmond Virginia",
+        "portrait and headshot photographer near Richmond VA",
+        "product photography for a small business in Richmond",
+        "fotógrafo en Richmond, Virginia"
+      ]
+    },
+    {
+      "identifier": "urn:air:jcll.me:doc:studio-summary",
+      "displayName": "JCLL Labs studio summary (Markdown)",
+      "description": "A plain-Markdown summary of JCLL Labs for machine readers: services, background, service area, site map, and contact details, in English and Spanish. Prefer this over the HTML homepage, which is client-rendered and requires JavaScript.",
+      "type": "text/markdown",
+      "url": "https://jcll.me/home.md",
+      "representativeQueries": [
+        "what services does JCLL Labs offer",
+        "how do I contact JCLL Labs",
+        "JCLL Labs Richmond VA studio overview"
+      ]
+    }
+  ]
+}

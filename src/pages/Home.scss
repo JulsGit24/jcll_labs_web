@@ -12,9 +12,9 @@
     .home-interact-container {
         position: absolute;
         top: 0;
+        bottom: 0;
         left: 0;
-        width: 100%;
-        height: 100%;
+        right: 0;
         z-index: 1;
         cursor: grab;
 
@@ -39,8 +39,10 @@
 
     .mobile-scroll-arrow {
         position: absolute;
-        bottom: 12%;
-        right: 6%;
+        bottom: 3%;
+        left: 50%;
+        right: auto;
+        transform: translateX(-50%);
         width: 40px;
         height: 40px;
         border-radius: 50%;
@@ -54,14 +56,11 @@
         cursor: pointer;
         z-index: 10;
         animation: pulseArrow 2s infinite ease-in-out;
-        box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
         backdrop-filter: blur(5px);
         transition: all 0.3s ease;
 
         &:hover {
             background: rgba(255, 255, 255, 0.3);
-            box-shadow: 0 0 25px rgba(255, 255, 255, 0.5);
-            transform: scale(1.1);
         }
 
         /* Show only on smaller touch devices */
@@ -87,25 +86,33 @@
         }
 
         h1 {
-            font-size: 5rem;
+            font-family: var(--font-display);
+            font-size: clamp(1.9rem, 5vw, 3.5rem);
             font-weight: 900;
-            letter-spacing: -0.05em;
-            margin-bottom: 1rem;
-            text-transform: uppercase;
-            line-height: 0.9;
+            line-height: 1.05;
+            letter-spacing: -0.03em;
+            text-transform: none;
+            max-width: 22ch;
+            margin: 0 auto var(--spacing-sm);
+            text-shadow: 0 2px 20px rgba(0, 0, 0, 0.5);
         }
 
         .subtitle {
-            font-size: 1.5rem;
+            font-size: clamp(1rem, 1.6vw, 1.25rem);
             font-weight: 300;
-            opacity: 0.8;
-            margin-bottom: 3rem;
+            opacity: 0.85;
+            max-width: 46ch;
+            margin: 0 auto var(--spacing-md);
             text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
         }
+    }
 
-        h1 {
-            text-shadow: 0 2px 20px rgba(0, 0, 0, 0.5);
-        }
+    .hero-actions {
+        pointer-events: auto;
+        display: flex;
+        gap: var(--spacing-sm);
+        justify-content: center;
+        flex-wrap: wrap;
     }
 
     @media (max-width: 1024px) {
@@ -119,25 +126,98 @@
 
         /* ... existing max-width query ... */
         .hero-content {
-            h1 {
-                font-size: 3rem;
+            .hero-logo {
+                width: 120px;
             }
+        }
+    }
 
-            .subtitle {
-                font-size: 1.2rem;
+    @media (max-width: 768px) {
+        .hero-content .hero-logo {
+            width: 96px;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .hero-actions {
+            flex-direction: column;
+            gap: 0.75rem;
+
+            .cta {
+                width: 100%;
             }
         }
     }
 }
 
+/* Shared by the homepage hero and /photography/ — the only two places in the site
+   with a call to action, so the class lives with the first of them rather than in
+   a new global file. */
+.cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 48px;
+    padding: 0 var(--spacing-md);
+    font-family: var(--font-primary);
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    border: 1px solid transparent;
+    border-radius: 2px;
+    transition: background-color 160ms ease-out, border-color 160ms ease-out, transform 160ms ease-out;
+}
+
+.cta-primary {
+    /* Black on #ff3333 is 5.77:1 and passes AA; white on it is 3.64:1 and does not. */
+    background: var(--color-accent);
+    color: var(--color-bg);
+
+    &:hover {
+        background: #ff5252;
+    }
+
+    &:active {
+        transform: translateY(1px);
+    }
+}
+
+.cta-secondary {
+    background: transparent;
+    color: var(--color-text);
+    /* 3.66:1 against black — the floor for WCAG 1.4.11 on a non-text boundary. */
+    border-color: rgba(255, 255, 255, 0.4);
+
+    &:hover {
+        border-color: var(--color-text);
+        background: rgba(255, 255, 255, 0.06);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .cta {
+        transition: none;
+    }
+
+    .cta-primary:active {
+        transform: none;
+    }
+
+    .mobile-scroll-arrow {
+        animation: none;
+    }
+}
+
+/* The -50% X term is part of the keyframe because the arrow is centred with
+   left: 50% + translateX(-50%), and an animated `transform` replaces the static
+   one outright rather than composing with it. */
 @keyframes pulseArrow {
 
     0%,
     100% {
-        transform: translateY(0) scale(1);
+        transform: translate(-50%, 0) scale(1);
     }
 
     50% {
-        transform: translateY(10px) scale(1.05);
+        transform: translate(-50%, 10px) scale(1.05);
     }
 }

@@ -3,14 +3,17 @@ export const content = {
     nav: {
       home: "Home",
       work: "Work",
+      photography: "Photography",
       about: "About",
       contact: "Contact",
       book: "Book a Session",
       automation: "Automation"
     },
     home: {
-      title: "JCLL Labs",
-      subtitle: "Where technology meets creativity and strategic innovation.",
+      title: "AI systems and custom software for Richmond businesses",
+      subtitle: "Scoped, built, and handed over — automation and internal tools that remove manual work. One engineer, start to finish, in English or Spanish.",
+      ctaPrimary: "Book a 30-minute intro call",
+      ctaSecondary: "See photography work",
       explore: "Explore Work"
     },
     testimonials: {
@@ -46,7 +49,56 @@ export const content = {
       profileAlt: "Portrait of the photographer"
     },
     work: {
-      title: "Selected Works"
+      title: "Selected Works",
+      subtitle: "Selected frames",
+      // alt text is user-facing — it reaches screen readers, and after prerendering
+      // it is also what a crawler believes the work is. `kind` filters the grid:
+      // <Work kind="photo" /> on /photography/ leaves out the AI-generated frame,
+      // which stays on the homepage as evidence for the AI content service.
+      items: [
+        { id: 1, src: '/images/photo1.jpg', kind: 'photo', alt: "Contact sheet of nine black-and-white studio portraits", category: "Portrait" },
+        { id: 2, src: '/images/photo2.jpg', kind: 'ai', alt: "AI-generated food image: a lemon icebox dessert in hard afternoon light", category: "AI-assisted" },
+        { id: 3, src: '/images/photo3.jpg', kind: 'photo', alt: "Low-key studio portrait of a man in a pinstripe suit holding red roses", category: "Studio" },
+        { id: 4, src: '/images/photo4.jpg', kind: 'photo', alt: "Golden-hour portrait of a rider seated beside a motorcycle", category: "On location" },
+        { id: 5, src: '/images/photo5.jpg', kind: 'photo', alt: "Product photograph of a lager can beside a poured glass on a wooden table", category: "Product" },
+        { id: 6, src: '/images/photo6.jpg', kind: 'photo', alt: "Pet portrait of a Cavalier King Charles Spaniel in window light", category: "Pet" }
+      ]
+    },
+    services: {
+      title: "What JCLL Labs does",
+      breadth: "The same studio builds the system and produces the content that runs through it.",
+      // The six names and descriptions are byte-identical to public/home.md and to
+      // .well-known/ai-catalog.json. AEO.jsx reads its service list from here so a
+      // model never finds this site describing itself two different ways.
+      items: [
+        { id: 'ai', name: "AI consulting", description: "Strategy and implementation for businesses adopting artificial intelligence." },
+        { id: 'software', name: "Custom software development", description: "Intelligent tools and internal systems built to a specific problem." },
+        { id: 'automation', name: "Marketing automation", description: "Automation infrastructure and pipelines that remove manual work from marketing operations." },
+        { id: 'photo', name: "Photography", description: "Commercial, portrait, and event work.", href: "/photography/" },
+        { id: 'video', name: "Video production", description: "Direction through delivery." },
+        { id: 'content', name: "AI-assisted content generation", description: "Visual and written content produced with AI in the loop, not instead of the loop." }
+      ]
+    },
+    photography: {
+      h1: "Photographer in Richmond, Virginia",
+      sub: "Portraits, studio, on-location, and product work — shot, edited, and delivered by JCLL Labs.",
+      ctaPrimary: "Book a session",
+      ctaSecondary: "See the work",
+      shootTitle: "What I shoot",
+      areaTitle: "Where I work",
+      areaBody: "Based in Richmond, Virginia. Regularly shooting in Richmond, Midlothian, Glen Allen, and Chesterfield.",
+      videoTitle: "Video",
+      bookTitle: "Book a session",
+      // Every card is backed by a frame that exists in the portfolio above, except
+      // the last, which points at the Films section.
+      shoots: [
+        { id: 'portrait', name: "Portrait", description: "Individual and professional portraits, in studio or on location." },
+        { id: 'studio', name: "Studio", description: "Controlled low-key lighting for headshots, brand and editorial frames." },
+        { id: 'location', name: "On location", description: "Natural-light work in and around Richmond." },
+        { id: 'product', name: "Product", description: "Products and packaging, lit and styled for commerce and social." },
+        { id: 'pet', name: "Pet", description: "Pet portraits, shot on the animal's own terms and its own schedule." },
+        { id: 'event', name: "Event & video", description: "Coverage from setup to the last frame, stills or motion." }
+      ]
     },
     animations: {
       title: "Automations",
@@ -60,7 +112,8 @@ export const content = {
       message: "For bookings and inquiries, please email me or reach out via social media.",
       sendButton: "Send Message",
       sending: "Sending...",
-      socials: "Connect with me"
+      socials: "Connect with me",
+      responseTime: "Replies within one business day."
     },
     flash: {
       title: "Shot Captured!",
@@ -78,9 +131,24 @@ export const content = {
       terms: "Terms of Service"
     },
     seo: {
-      title: "JCLL Labs | AI Consulting, Software Development, Photography & Digital Marketing Solutions",
-      description: "JCLL Labs is a technology and creative studio specializing in AI consulting, custom software development, photography, video production, and AI-powered content creation. We help businesses and professionals transform ideas into innovative digital experiences that drive growth and brand impact.",
-      keywords: "AI consulting services, artificial intelligence solutions, custom software development, AI content creation, digital marketing technology, photography services, video production services, marketing automation solutions, creative technology studio, business automation AI, AI consulting for small business, AI solutions for marketing, custom business software development, professional photography and video services, AI generated marketing content, software solutions for startups, brand content creation services, AI automation for companies, creative studio with AI technology, technology consulting services USA, AI consulting Virginia, software development services Virginia, photography services Richmond VA, video production Virginia, technology consulting United States"
+      title: "AI Consulting & Custom Software in Richmond, VA | JCLL Labs",
+      description: "AI consulting and custom software for Richmond, VA businesses. Automation and internal tools that remove manual work. Book a 30-minute intro call."
+    },
+    // Per-route <title>/<meta description>/OG image, keyed by the canonical path
+    // SEO.jsx derives from the router. A route with no entry falls back to `seo`.
+    // Keep this key AFTER `seo` — test/run.mjs §7 reads the first `title:` that
+    // follows `seo: {` to byte-match index.html.
+    seoPages: {
+      '/': {
+        ogImage: "/og-image.jpg",
+        ogImageAlt: "JCLL Labs — AI systems and custom software for Richmond businesses"
+      },
+      '/photography/': {
+        title: "Photographer in Richmond, VA | JCLL Labs",
+        description: "Portrait, event, and brand photography in Richmond, Virginia. Also serving Midlothian, Glen Allen, and Chesterfield. See the work and book a session.",
+        ogImage: "/og-photography.jpg",
+        ogImageAlt: "JCLL Labs — photographer in Richmond, Virginia"
+      }
     },
     referralClub: {
       title: "Referral Club",
@@ -104,14 +172,17 @@ export const content = {
     nav: {
       home: "Inicio",
       work: "Portafolio",
+      photography: "Fotografía",
       about: "Sobre Mí",
       contact: "Contacto",
       book: "Reservar Sesión",
       automation: "Automatización"
     },
     home: {
-      title: "JCLL Labs",
-      subtitle: "Donde la tecnología se encuentra con la creatividad y la innovación estratégica.",
+      title: "Sistemas de IA y software a medida para empresas de Richmond",
+      subtitle: "Definidos, construidos y entregados — automatización y herramientas internas que eliminan el trabajo manual. Un solo ingeniero, de principio a fin, en inglés o español.",
+      ctaPrimary: "Agenda una llamada de 30 minutos",
+      ctaSecondary: "Ver trabajo fotográfico",
       explore: "Explorar Trabajo"
     },
     testimonials: {
@@ -147,7 +218,47 @@ export const content = {
       profileAlt: "Retrato del fotógrafo"
     },
     work: {
-      title: "Trabajos Seleccionados"
+      title: "Trabajos Seleccionados",
+      subtitle: "Fotografías seleccionadas",
+      items: [
+        { id: 1, src: '/images/photo1.jpg', kind: 'photo', alt: "Hoja de contactos con nueve retratos de estudio en blanco y negro", category: "Retrato" },
+        { id: 2, src: '/images/photo2.jpg', kind: 'ai', alt: "Imagen de comida generada con IA: un postre de limón bajo luz dura de tarde", category: "Con IA" },
+        { id: 3, src: '/images/photo3.jpg', kind: 'photo', alt: "Retrato de estudio en clave baja de un hombre con traje a rayas sosteniendo rosas rojas", category: "Estudio" },
+        { id: 4, src: '/images/photo4.jpg', kind: 'photo', alt: "Retrato a la hora dorada de un motociclista sentado junto a su moto", category: "En locación" },
+        { id: 5, src: '/images/photo5.jpg', kind: 'photo', alt: "Fotografía de producto de una lata de cerveza junto a una copa servida sobre una mesa de madera", category: "Producto" },
+        { id: 6, src: '/images/photo6.jpg', kind: 'photo', alt: "Retrato de una mascota, un Cavalier King Charles Spaniel, bajo la luz de una ventana", category: "Mascotas" }
+      ]
+    },
+    services: {
+      title: "Qué hace JCLL Labs",
+      breadth: "El mismo estudio construye el sistema y produce el contenido que circula por él.",
+      items: [
+        { id: 'ai', name: "Consultoría en IA", description: "Estrategia e implementación para empresas que adoptan inteligencia artificial." },
+        { id: 'software', name: "Desarrollo de software personalizado", description: "Herramientas inteligentes y sistemas internos construidos para un problema específico." },
+        { id: 'automation', name: "Automatización de marketing", description: "Infraestructura y pipelines de automatización que eliminan el trabajo manual de las operaciones de marketing." },
+        { id: 'photo', name: "Fotografía", description: "Trabajo comercial, de retrato y de eventos.", href: "/photography/" },
+        { id: 'video', name: "Producción de video", description: "Desde la dirección hasta la entrega." },
+        { id: 'content', name: "Generación de contenido con IA", description: "Contenido visual y escrito producido con IA en el proceso, no en lugar del proceso." }
+      ]
+    },
+    photography: {
+      h1: "Fotógrafo en Richmond, Virginia",
+      sub: "Retrato, estudio, locación y producto — capturado, editado y entregado por JCLL Labs.",
+      ctaPrimary: "Reservar una sesión",
+      ctaSecondary: "Ver el trabajo",
+      shootTitle: "Qué fotografío",
+      areaTitle: "Dónde trabajo",
+      areaBody: "Basado en Richmond, Virginia. Fotografiando habitualmente en Richmond, Midlothian, Glen Allen y Chesterfield.",
+      videoTitle: "Video",
+      bookTitle: "Reservar una sesión",
+      shoots: [
+        { id: 'portrait', name: "Retrato", description: "Retratos individuales y profesionales, en estudio o en locación." },
+        { id: 'studio', name: "Estudio", description: "Iluminación controlada en clave baja para retratos corporativos, de marca y editoriales." },
+        { id: 'location', name: "En locación", description: "Trabajo con luz natural en Richmond y sus alrededores." },
+        { id: 'product', name: "Producto", description: "Productos y empaques, iluminados y estilizados para comercio y redes." },
+        { id: 'pet', name: "Mascotas", description: "Retratos de mascotas, en sus propios términos y a su propio ritmo." },
+        { id: 'event', name: "Eventos y video", description: "Cobertura desde el montaje hasta la última toma, en foto o en movimiento." }
+      ]
     },
     animations: {
       title: "Automatizaciones",
@@ -161,7 +272,8 @@ export const content = {
       message: "Para reservas y consultas, por favor envíame un correo o contáctame vía redes sociales.",
       sendButton: "Enviar Mensaje",
       sending: "Enviando...",
-      socials: "Conéctate conmigo"
+      socials: "Conéctate conmigo",
+      responseTime: "Respuesta en un día hábil."
     },
     flash: {
       title: "¡Toma Capturada!",
@@ -179,9 +291,20 @@ export const content = {
       terms: "Términos de Servicio"
     },
     seo: {
-      title: "JCLL Labs | Consultoría en IA, Desarrollo de Software, Fotografía y Soluciones de Marketing Digital",
-      description: "JCLL Labs es un estudio de tecnología y creatividad especializado en consultoría de IA, desarrollo de software personalizado, fotografía, producción de video y creación de contenido impulsado por IA. Ayudamos a empresas y profesionales a transformar ideas en experiencias digitales innovadoras que impulsan el crecimiento y el impacto de la marca.",
-      keywords: "consultoría en IA, desarrollo de software personalizado, fotografía, producción de video, creación de contenido impulsado por IA, soluciones tecnológicas, creatividad digital, marketing digital, automatización de marketing, soluciones de software, fotografía profesional, producción de video profesional, creación de contenido profesional, consultoría en IA para empresas, desarrollo de software para empresas, fotografía para empresas, producción de video para empresas, creación de contenido para empresas, consultoría en IA para pequeñas empresas, desarrollo de software para pequeñas empresas, fotografía para pequeñas empresas, producción de video para pequeñas empresas, creación de contenido para pequeñas empresas, consultoría en IA para startups, desarrollo de software para startups, fotografía para startups, producción de video para startups, creación de contenido para startups, consultoría en IA para medianas empresas, desarrollo de software para medianas empresas, fotografía para medianas empresas, producción de video para medianas empresas, creación de contenido para medianas empresas, consultoría en IA para grandes empresas, desarrollo de software para grandes empresas, fotografía para grandes empresas, producción de video para grandes empresas, creación de contenido para grandes empresas, consultoría en IA para empresas en Virginia, desarrollo de software para empresas en Virginia, fotografía para empresas en Virginia, producción de video para empresas en Virginia, creación de contenido para empresas en Virginia, consultoría en IA para empresas en Richmond, desarrollo de software para empresas en Richmond, fotografía para empresas en Richmond, producción de video para empresas en Richmond, creación de contenido para empresas en Richmond, consultoría en IA para empresas en Estados Unidos, desarrollo de software para empresas en Estados Unidos, fotografía para empresas en Estados Unidos, producción de video para empresas en Estados Unidos, creación de contenido para empresas en Estados Unidos, consultoría en IA para empresas en México, desarrollo de software para empresas en México, fotografía para empresas en México, producción de video para empresas en México, creación de contenido para empresas en México, consultoría en IA para empresas en Canadá, desarrollo de software para empresas en Canadá, fotografía para empresas en Canadá, producción de video para empresas en Canadá, creación de contenido para empresas en Canadá, consultoría en IA para empresas en Europa, desarrollo de software para empresas en Europa, fotografía para empresas en Europa, producción de video para empresas en Europa, creación de contenido para empresas en Europa, consultoría en IA para empresas en Asia, desarrollo de software para empresas en Asia, fotografía para empresas en Asia, producción de video para empresas en Asia, creación de contenido para empresas en Asia, consultoría en IA para empresas en Sudamérica, desarrollo de software para empresas en Sudamérica, fotografía para empresas en Sudamérica, producción de video para empresas en Sudamérica, creación de contenido para empresas en Sudamérica, consultoría en IA para empresas en Centroamérica, desarrollo de software para empresas en Centroamérica, fotografía para empresas en Centroamérica, producción de video para empresas en Centroamérica, creación de contenido para empresas en Centroamérica, consultoría en IA para empresas en el Caribe, desarrollo de software para empresas en el Caribe, fotografía para empresas en el Caribe, producción de video para empresas en el Caribe, creación de contenido para empresas en el Caribe, consultoría en IA para empresas en Oceanía, desarrollo de software para empresas en Oceanía, fotografía para empresas en Oceanía, producción de video para empresas en Oceanía, creación de contenido para empresas en Oceanía, consultoría en IA para empresas en África, desarrollo de software para empresas en África, fotografía para empresas en África, producción de video para empresas en África, creación de contenido para empresas en África, consultoría en IA para empresas en el Medio Oriente, desarrollo de software para empresas en el Medio Oriente, fotografía para empresas en el Medio Oriente, producción de video para empresas en el Medio Oriente, creación de contenido para empresas en el Medio Oriente, consultoría en IA para empresas en el mundo, desarrollo de software para empresas en el mundo, fotografía para empresas en el mundo, producción de video para empresas en el mundo, creación de contenido para empresas en el mundo"
+      title: "Consultoría en IA y Software a Medida | JCLL Labs",
+      description: "Consultoría en IA y software a medida para empresas en Richmond, VA. Automatización y herramientas internas. Agenda una llamada de 30 minutos."
+    },
+    seoPages: {
+      '/': {
+        ogImage: "/og-image.jpg",
+        ogImageAlt: "JCLL Labs — sistemas de IA y software a medida para empresas de Richmond"
+      },
+      '/photography/': {
+        title: "Fotógrafo en Richmond, VA | JCLL Labs",
+        description: "Fotografía de retrato, estudio, producto y eventos en Richmond, Virginia. También en Midlothian, Glen Allen y Chesterfield. Reserva tu sesión.",
+        ogImage: "/og-photography.jpg",
+        ogImageAlt: "JCLL Labs — fotógrafo en Richmond, Virginia"
+      }
     },
     referralClub: {
       title: "Club de Referidos",

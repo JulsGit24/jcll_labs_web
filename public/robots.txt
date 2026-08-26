@@ -1,0 +1,49 @@
+# robots.txt — JCLL Labs — https://jcll.me
+#
+# Policy: this site may be crawled, indexed, and cited by search engines and by AI
+# answer engines. Its text and images may not be used as AI training data.
+# Content signals per https://contentsignals.org/
+
+User-agent: *
+Content-Signal: ai-train=no, search=yes, ai-input=yes
+Allow: /
+Disallow: /contact.php
+Disallow: /test_email.php
+
+User-agent: GPTBot
+Content-Signal: ai-train=no, search=yes, ai-input=yes
+Allow: /
+Disallow: /contact.php
+Disallow: /test_email.php
+
+User-agent: OAI-SearchBot
+Content-Signal: ai-train=no, search=yes, ai-input=yes
+Allow: /
+Disallow: /contact.php
+Disallow: /test_email.php
+
+User-agent: ChatGPT-User
+Content-Signal: ai-train=no, search=yes, ai-input=yes
+Allow: /
+Disallow: /contact.php
+Disallow: /test_email.php
+
+User-agent: Claude-Web
+Content-Signal: ai-train=no, search=yes, ai-input=yes
+Allow: /
+Disallow: /contact.php
+Disallow: /test_email.php
+
+User-agent: ClaudeBot
+Content-Signal: ai-train=no, search=yes, ai-input=yes
+Allow: /
+Disallow: /contact.php
+Disallow: /test_email.php
+
+User-agent: Google-Extended
+Content-Signal: ai-train=no, search=yes, ai-input=yes
+Allow: /
+Disallow: /contact.php
+Disallow: /test_email.php
+
+Sitemap: https://jcll.me/sitemap.xml

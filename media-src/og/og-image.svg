@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Type layer for /og-image.jpg. Rasterised by sharp in scripts/optimize-media.mjs
+     and composited over a black 1200x630 canvas. Coordinates are absolute px and
+     match the design spec; the logo is composited separately from public/logo.png.
+     Arial Black resolves on the Windows build machine — on a box without it the
+     fallbacks kick in and the type looks wrong without failing, so these files are
+     checked by eye once and only change when the copy does. -->
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <g font-family="Arial Black, Arial, Helvetica, sans-serif" font-weight="900" font-size="72" fill="#ffffff">
+    <text x="80" y="280">AI systems and custom</text>
+    <text x="80" y="358">software for Richmond</text>
+    <text x="80" y="436">businesses</text>
+  </g>
+  <rect x="80" y="468" width="140" height="6" fill="#ff3333"/>
+  <text x="80" y="566" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="28" fill="#ffffff" fill-opacity="0.7">JCLL Labs · Richmond, VA · jcll.me</text>
+</svg>

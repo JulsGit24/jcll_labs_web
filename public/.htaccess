@@ -2,7 +2,151 @@
   RewriteEngine On
   RewriteBase /
   RewriteRule ^index\.html$ - [L]
+
+  # --- AEO: Markdown for Agents (audit item 5) -----------------------------
+  # Agents that ask for Markdown on the homepage get the static agent summary.
+  # Browsers never send text/markdown in Accept, so humans are unaffected.
+  RewriteCond %{HTTP_ACCEPT} text/markdown [NC]
+  RewriteRule ^$ /home.md [L]
+  # ------------------------------------------------------------------------
+
+  # --- PERF: serve WebP in place of JPEG/PNG when the browser accepts it ------
+  # The optimizer emits photo1.jpg + photo1.webp side by side and drops the .webp
+  # whenever it came out larger, so the -f test below is what makes this a swap
+  # only when a smaller file actually exists. Components keep referencing .jpg.
+  RewriteCond %{HTTP_ACCEPT} image/webp
+  RewriteCond %{DOCUMENT_ROOT}/$1.webp -f
+  RewriteRule ^(.+)\.(jpe?g|png)$ /$1.webp [T=image/webp,E=WEBP_SWAP:1,L]
+
+  # --- PERF: serve build-time precompressed assets ----------------------------
+  # scripts/compress-dist.mjs writes .br/.gz next to each text asset. Brotli is
+  # preferred, gzip is the fallback; no-gzip stops mod_deflate from compressing an
+  # already-compressed response a second time. Content-Type and Content-Encoding
+  # are restored in the mod_headers/ForceType blocks below - without those the
+  # browser would receive compressed bytes labelled as plain text.
+  RewriteCond %{HTTP:Accept-Encoding} br
+  RewriteCond %{REQUEST_FILENAME}.br -f
+  RewriteRule ^(.*)$ /$1.br [E=BR_ENC:1,E=no-gzip:1,L]
+
+  RewriteCond %{HTTP:Accept-Encoding} gzip
+  RewriteCond %{REQUEST_FILENAME}.gz -f
+  RewriteRule ^(.*)$ /$1.gz [E=GZ_ENC:1,E=no-gzip:1,L]
+
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteCond %{REQUEST_FILENAME} !-d
   RewriteRule . /index.html [L]
+</IfModule>
+
+# --- AEO: content types for agent-facing artifacts -------------------------
+<IfModule mod_mime.c>
+  # Markdown for Agents (items 5, 11)
+  AddType text/markdown .md
+  AddCharset UTF-8 .md
+
+  # RFC 9727 API catalog. The file has no extension, so AddType cannot match it;
+  # ForceType matched on the exact filename is the only way to set its type.
+  <Files "api-catalog">
+    ForceType application/linkset+json
+  </Files>
+</IfModule>
+
+# --- AEO: Link headers for agent discovery, RFC 8288 (item 3) --------------
+<IfModule mod_headers.c>
+  # Scoped to index.html, which is what every HTML response on this SPA resolves
+  # to (directly for "/", via the rewrite for every route). Deliberately NOT an
+  # <If> block: <If> is a syntax error on Apache 2.2 and would 500 the whole site,
+  # whereas a missing module simply skips <IfModule>.
+  <Files "index.html">
+    Header always set Link "</.well-known/api-catalog>; rel=\"api-catalog\""
+    Header always add Link "</.well-known/ai-catalog.json>; rel=\"describedby\"; type=\"application/json\""
+    Header always add Link "</openapi.json>; rel=\"service-desc\"; type=\"application/json\""
+  </Files>
+
+  # ARD manifest requires application/json AND CORS specifically (item 15).
+  <Files "ai-catalog.json">
+    Header set Content-Type "application/json"
+    Header set Access-Control-Allow-Origin "*"
+  </Files>
+
+  # The agent skills index and the OpenAPI document are both fetched
+  # cross-origin by browser-side agents. Same treatment, no downside.
+  <Files "index.json">
+    Header set Access-Control-Allow-Origin "*"
+  </Files>
+  <Files "openapi.json">
+    Header set Access-Control-Allow-Origin "*"
+  </Files>
+</IfModule>
+
+# --- PERF: restore identity of the precompressed variants -------------------
+# A request rewritten to foo.js.br must still be announced as JavaScript encoded
+# with brotli. Without ForceType Apache would infer the type from the .br suffix.
+# ForceType is mod_mime, so it has to be guarded like every other directive here.
+<IfModule mod_mime.c>
+  <FilesMatch "\.css\.(br|gz)$">
+    ForceType text/css
+  </FilesMatch>
+  <FilesMatch "\.js\.(br|gz)$">
+    ForceType application/javascript
+  </FilesMatch>
+  <FilesMatch "\.svg\.(br|gz)$">
+    ForceType image/svg+xml
+  </FilesMatch>
+  <FilesMatch "\.json\.(br|gz)$">
+    ForceType application/json
+  </FilesMatch>
+  <FilesMatch "\.html\.(br|gz)$">
+    ForceType text/html
+  </FilesMatch>
+</IfModule>
+
+<IfModule mod_headers.c>
+  Header set Content-Encoding "br" env=BR_ENC
+  Header set Content-Encoding "gzip" env=GZ_ENC
+  # Caches must key on both headers or a proxy will hand a brotli or WebP payload
+  # to a client that cannot decode it.
+  Header append Vary "Accept-Encoding" env=BR_ENC
+  Header append Vary "Accept-Encoding" env=GZ_ENC
+  Header append Vary "Accept" env=WEBP_SWAP
+</IfModule>
+
+# --- PERF: on-the-fly compression for anything not precompressed ------------
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/plain text/css text/xml text/markdown
+  AddOutputFilterByType DEFLATE application/javascript application/json application/xml
+  AddOutputFilterByType DEFLATE application/linkset+json image/svg+xml
+</IfModule>
+
+# --- PERF: caching ----------------------------------------------------------
+<IfModule mod_expires.c>
+  ExpiresActive On
+  # Build assets carry a content hash in the filename, so a changed file is a new
+  # URL and this can be cached indefinitely. The matching Cache-Control lives in
+  # the mod_headers block below — a Header directive in here would fault the
+  # server on a host that has mod_expires but not mod_headers.
+  <FilesMatch "-[a-zA-Z0-9_-]{8,}\.(js|css)$">
+    ExpiresDefault "access plus 1 year"
+  </FilesMatch>
+  # Media keeps stable filenames, so cache it hard but leave it revalidatable.
+  ExpiresByType image/jpeg "access plus 30 days"
+  ExpiresByType image/png "access plus 30 days"
+  ExpiresByType image/webp "access plus 30 days"
+  ExpiresByType image/svg+xml "access plus 30 days"
+  ExpiresByType video/mp4 "access plus 30 days"
+  ExpiresByType font/woff2 "access plus 1 year"
+  # The agent-facing documents are policy, and should not go stale for a month.
+  ExpiresByType text/markdown "access plus 1 day"
+  ExpiresByType application/json "access plus 1 day"
+</IfModule>
+
+<IfModule mod_headers.c>
+  # Hashed build assets are immutable by construction.
+  <FilesMatch "-[a-zA-Z0-9_-]{8,}\.(js|css)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+  # index.html is the SPA entry point and names the hashed asset URLs, so it must
+  # never be cached - a stale copy points every visitor at deleted files.
+  <FilesMatch "^index\.html$">
+    Header set Cache-Control "no-cache, must-revalidate"
+  </FilesMatch>
 </IfModule>

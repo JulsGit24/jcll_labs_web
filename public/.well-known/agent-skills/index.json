@@ -1,0 +1,13 @@
+{
+  "$schema": "https://schemas.agentskills.io/discovery/0.2.0/schema.json",
+  "skills": [
+    {
+      "name": "submit-contact-inquiry",
+      "type": "skill-md",
+      "description": "Send a contact inquiry to JCLL Labs — a technology and creative studio in Richmond, Virginia offering AI consulting, custom software development, marketing automation, photography, and video production. Delivers the message to the studio by email. No authentication required.",
+      "url": "/.well-known/agent-skills/submit-contact-inquiry/SKILL.md",
+      "digest": "sha256:393ae2bcb109c01c0b4afe88fd761d0dbac22081ad16d0b08af9a76a2cdf77ff",
+      "sha256": "393ae2bcb109c01c0b4afe88fd761d0dbac22081ad16d0b08af9a76a2cdf77ff"
+    }
+  ]
+}

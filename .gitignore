@@ -43,3 +43,10 @@ database/
 secrets.json
 credentials.json
 service-account.json
+
+CLAUDE.MD
+.claude/
+aeo/
+intake/
+workflow/
+#changes/

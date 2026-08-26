@@ -1,0 +1,106 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "JCLL Labs Contact API",
+    "version": "1.0.0",
+    "description": "The single public HTTP endpoint of jcll.me. Accepts a contact inquiry and emails it to the studio. No authentication. Nothing is stored.",
+    "contact": {
+      "name": "JCLL Labs",
+      "email": "contact@jcll.me",
+      "url": "https://jcll.me"
+    }
+  },
+  "servers": [
+    { "url": "https://jcll.me" }
+  ],
+  "paths": {
+    "/contact.php": {
+      "post": {
+        "operationId": "submitContactInquiry",
+        "summary": "Submit a contact inquiry to JCLL Labs",
+        "description": "Sends the inquiry to the studio by email. Requires no credentials. Callable cross-origin (Access-Control-Allow-Origin: *).",
+        "security": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["name", "email", "message"],
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "description": "Name of the person or organization making contact."
+                  },
+                  "email": {
+                    "type": "string",
+                    "format": "email",
+                    "description": "A reply address. Must be a valid email address or the request is rejected."
+                  },
+                  "subject": {
+                    "type": "string",
+                    "description": "Optional subject line."
+                  },
+                  "message": {
+                    "type": "string",
+                    "description": "The inquiry itself."
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The inquiry was sent.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Result" },
+                "example": { "status": "success", "message": "Message sent successfully." }
+              }
+            }
+          },
+          "400": {
+            "description": "Malformed JSON, or a required field was missing or invalid.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Result" },
+                "example": { "status": "error", "message": "Please fill in all required fields (Name, Email, Message)." }
+              }
+            }
+          },
+          "405": {
+            "description": "Method not allowed. Only POST is accepted.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Result" },
+                "example": { "status": "error", "message": "Method not allowed" }
+              }
+            }
+          },
+          "500": {
+            "description": "The server could not send the email.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Result" },
+                "example": { "status": "error", "message": "Failed to send email. Verification of server configuration required." }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Result": {
+        "type": "object",
+        "required": ["status", "message"],
+        "properties": {
+          "status": { "type": "string", "enum": ["success", "error"] },
+          "message": { "type": "string" }
+        }
+      }
+    }
+  }
+}

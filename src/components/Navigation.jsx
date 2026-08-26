@@ -60,6 +60,9 @@ const Navigation = () => {
                 <a href="#work" onClick={(e) => { e.preventDefault(); handleScroll('work'); }}>
                     {t.work}
                 </a>
+                <Link to="/photography/">
+                    {t.photography}
+                </Link>
                 <a href="#animations" onClick={(e) => { e.preventDefault(); handleScroll('animations'); }}>
                     {t.automation}
                 </a>
@@ -123,6 +126,9 @@ const Navigation = () => {
                     <a href="#work" onClick={(e) => { e.preventDefault(); handleScroll('work'); }}>
                         {t.work}
                     </a>
+                    <Link to="/photography/" onClick={closeMenu}>
+                        {t.photography}
+                    </Link>
                     <a href="#animations" onClick={(e) => { e.preventDefault(); handleScroll('animations'); }}>
                         {t.automation}
                     </a>

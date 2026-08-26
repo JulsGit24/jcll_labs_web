@@ -2,9 +2,21 @@ import React, { useState } from 'react';
 import { useStore } from '../utils/store';
 import { content } from '../utils/content';
 import { motion } from 'framer-motion';
-import { Instagram, Facebook, Twitter, Mail } from 'lucide-react';
+import { Instagram, Facebook, Twitter, Linkedin, Github, Globe, Mail } from 'lucide-react';
 import FlashNotification from '../components/FlashNotification';
+import { SOCIAL_LINKS } from '../utils/site';
 import './Contact.scss';
+
+// Icons are matched to a SOCIAL_LINKS entry by its label. Globe covers anything
+// lucide has no mark for (Behance, a directory listing) rather than dropping the link.
+const SOCIAL_ICONS = {
+    Instagram,
+    Facebook,
+    Twitter,
+    X: Twitter,
+    LinkedIn: Linkedin,
+    GitHub: Github
+};
 
 const pageVariants = {
     initial: { opacity: 0, y: 30 },
@@ -167,6 +179,7 @@ const Contact = () => {
                     <button type="submit" className="submit-btn" disabled={isSubmitting}>
                         {isSubmitting ? t.sending : t.sendButton}
                     </button>
+                    <p className="response-time">{t.responseTime}</p>
                 </form>
 
                 <div className="direct-contact">
@@ -175,20 +188,30 @@ const Contact = () => {
                     </a>
                 </div>
 
-                <div className="social-links">
-                    <p className="social-label">{t.socials}</p>
-                    <div className="icons">
-                        <a href="https://instagram.com/jcll_photography" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
-                            <Instagram size={32} />
-                        </a>
-                        <a href="#" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
-                            <Facebook size={32} />
-                        </a>
-                        <a href="#" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)">
-                            <Twitter size={32} />
-                        </a>
+                {/* Row and label are omitted while SOCIAL_LINKS is empty. It
+                    previously held two href="#" links, which are announced as links
+                    that go nowhere, and one unverified handle. */}
+                {SOCIAL_LINKS.length > 0 && (
+                    <div className="social-links">
+                        <p className="social-label">{t.socials}</p>
+                        <div className="icons">
+                            {SOCIAL_LINKS.map((social) => {
+                                const Icon = SOCIAL_ICONS[social.label] ?? Globe;
+                                return (
+                                    <a
+                                        key={social.url}
+                                        href={social.url}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        aria-label={social.label}
+                                    >
+                                        <Icon size={32} />
+                                    </a>
+                                );
+                            })}
+                        </div>
                     </div>
-                </div>
+                )}
             </div>
         </motion.div>
     );

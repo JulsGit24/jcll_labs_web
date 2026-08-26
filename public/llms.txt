@@ -1,0 +1,19 @@
+# JCLL Labs
+
+> AI consulting, custom software development, marketing automation, photography, video
+> production, and AI-assisted content generation. Richmond, Virginia. English and Spanish.
+
+## Read this first
+- [Studio summary](https://jcll.me/home.md): services, background, service area, site map, and contact, in English and Spanish.
+
+## Pages
+- [Home](https://jcll.me/): AI consulting and custom software for Richmond businesses.
+- [Photography](https://jcll.me/photography/): portrait, studio, on-location, product and pet photography, and video, in Richmond VA.
+
+## For agents
+- [Capability manifest](https://jcll.me/.well-known/ai-catalog.json)
+- [API catalog](https://jcll.me/.well-known/api-catalog)
+- [Agent skills index](https://jcll.me/.well-known/agent-skills/index.json)
+- [OpenAPI](https://jcll.me/openapi.json)
+- [Authentication](https://jcll.me/auth.md): none required.
+- Content policy: [robots.txt](https://jcll.me/robots.txt) — `ai-train=no, search=yes, ai-input=yes`.

@@ -1,0 +1,9 @@
+# The agent-facing static artifacts must stay byte-identical across checkouts:
+# core.autocrlf would otherwise rewrite them to CRLF, which changes the SHA-256
+# digest published in .well-known/agent-skills/index.json.
+public/robots.txt        text eol=lf
+public/sitemap.xml       text eol=lf
+public/home.md           text eol=lf
+public/auth.md           text eol=lf
+public/openapi.json      text eol=lf
+public/.well-known/**    text eol=lf

@@ -1,0 +1,121 @@
+.photography-page {
+
+    .photography-hero {
+        padding: calc(var(--spacing-xl) + 60px) var(--spacing-md) var(--spacing-xl);
+        max-width: 1200px;
+        margin: 0 auto;
+        text-align: center;
+
+        h1 {
+            font-family: var(--font-display);
+            font-size: clamp(1.9rem, 5vw, 3.5rem);
+            font-weight: 900;
+            line-height: 1.05;
+            letter-spacing: -0.03em;
+            max-width: 22ch;
+            margin: 0 auto var(--spacing-sm);
+        }
+
+        .photography-sub {
+            font-size: clamp(1rem, 1.6vw, 1.25rem);
+            font-weight: 300;
+            opacity: 0.85;
+            max-width: 46ch;
+            margin: 0 auto var(--spacing-md);
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: var(--spacing-sm);
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+    }
+
+    .photography-shoots,
+    .photography-area,
+    .photography-video,
+    .photography-book {
+        padding: var(--spacing-xl) var(--spacing-md);
+        max-width: 1200px;
+        margin: 0 auto;
+
+        h2 {
+            font-size: 3rem;
+            text-transform: uppercase;
+            text-align: center;
+            margin-bottom: var(--spacing-lg);
+        }
+    }
+
+    .photography-shoot-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: var(--spacing-md);
+    }
+
+    .photography-shoot-card {
+        border: 1px solid #333;
+        background-color: #0a0a0a;
+        padding: var(--spacing-md);
+
+        h3 {
+            font-family: var(--font-display);
+            font-size: 1.25rem;
+            margin-bottom: 0.75rem;
+        }
+
+        p {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            opacity: 0.8;
+        }
+    }
+
+    .photography-area p {
+        max-width: 60ch;
+        margin: 0 auto;
+        text-align: center;
+        font-size: 1.1rem;
+        line-height: 1.7;
+        opacity: 0.85;
+    }
+
+    /* The reused sections bring their own top padding, sized for sitting first in
+       the one-page stack. Here they follow an <h2>, so it has to come back off. */
+    .photography-video .films-section,
+    .photography-book .contact-page,
+    #photography-work .work-page {
+        padding-top: 0;
+    }
+
+    @media (max-width: 768px) {
+
+        .photography-hero,
+        .photography-shoots,
+        .photography-area,
+        .photography-video,
+        .photography-book {
+            padding-left: var(--spacing-sm);
+            padding-right: var(--spacing-sm);
+            padding-top: var(--spacing-lg);
+            padding-bottom: var(--spacing-lg);
+
+            h2 {
+                font-size: 2rem;
+            }
+        }
+
+        .photography-hero {
+            padding-top: calc(var(--spacing-lg) + 60px);
+        }
+
+        .hero-actions {
+            flex-direction: column;
+
+            .cta {
+                width: 100%;
+            }
+        }
+    }
+}

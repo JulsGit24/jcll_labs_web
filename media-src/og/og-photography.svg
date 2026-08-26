@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Type layer for /og-photography.jpg. Rasterised by sharp in
+     scripts/optimize-media.mjs and composited over a black 1200x630 canvas with
+     photo3 flush right. Nothing here crosses x=700: past that is the gradient
+     feather and the photograph. "Richmond, Virginia" measures 779px at the 76px
+     size the design spec asks for, which is 159px past the safe area, so the
+     headline wraps to three lines rather than dropping to ~58px type. -->
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <g font-family="Arial Black, Arial, Helvetica, sans-serif" font-weight="900" font-size="76" fill="#ffffff">
+    <text x="80" y="205">Photographer</text>
+    <text x="80" y="287">Richmond,</text>
+    <text x="80" y="369">Virginia</text>
+  </g>
+  <rect x="80" y="401" width="140" height="6" fill="#ff3333"/>
+  <text x="80" y="475" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="26" fill="#ffffff" fill-opacity="0.7">JCLL Labs · Portraits · Studio · On location · jcll.me</text>
+</svg>

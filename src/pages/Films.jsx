@@ -15,11 +15,16 @@ const Films = () => {
     return (
         <section ref={containerRef} className="films-section">
             <div className="video-container">
+                {/* The poster paints immediately so the section is never a black
+                    box, and covers the case where a browser or data-saver setting
+                    refuses to autoplay. */}
                 <video
                     autoPlay
                     muted
                     loop
                     playsInline
+                    preload="metadata"
+                    poster="/video/video-poster.jpg"
                     src="/video/video.mp4"
                 />
                 <div className="overlay" />

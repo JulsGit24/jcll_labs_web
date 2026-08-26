@@ -1,0 +1,21 @@
+{
+  "linkset": [
+    {
+      "anchor": "https://jcll.me/contact.php",
+      "links": [
+        {
+          "rel": "service-desc",
+          "href": "https://jcll.me/openapi.json",
+          "type": "application/json",
+          "title": "OpenAPI 3.1 description of the JCLL Labs contact endpoint"
+        },
+        {
+          "rel": "service-doc",
+          "href": "https://jcll.me/auth.md",
+          "type": "text/markdown",
+          "title": "Agent access and authentication policy, including the endpoint contract"
+        }
+      ]
+    }
+  ]
+}

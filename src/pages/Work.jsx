@@ -15,20 +15,15 @@ const itemVariants = {
     animate: { opacity: 1, y: 0 }
 };
 
-const Work = () => {
+// `kind` filters the grid. Undefined renders everything (the homepage); "photo"
+// renders only the real photographs, which keeps the AI-generated frame off a page
+// headlined "Photographer in Richmond, Virginia".
+const Work = ({ kind }) => {
     const { language } = useStore();
     const t = content[language].work;
     const [selectedId, setSelectedId] = useState(null);
 
-    // Enhanced works list with categories
-    const works = [
-        { id: 1, src: '/images/photo1.jpg', alt: 'Portrait Session', category: 'Portrait' },
-        { id: 2, src: '/images/photo2.jpg', alt: 'Urban Landscape', category: 'Urban' },
-        { id: 3, src: '/images/photo3.jpg', alt: 'Event Photography', category: 'Event' },
-        { id: 4, src: '/images/photo4.jpg', alt: 'Studio Work', category: 'Studio' },
-        { id: 5, src: '/images/photo5.jpg', alt: 'Black & White', category: 'B&W' },
-        { id: 6, src: '/images/photo6.jpg', alt: 'Editorial', category: 'Editorial' },
-    ];
+    const works = kind ? t.items.filter((item) => item.kind === kind) : t.items;
 
     const selectedImage = works.find(w => w.id === selectedId);
 
@@ -42,7 +37,7 @@ const Work = () => {
                 exit="exit"
             >
                 <h2>{t.title}</h2>
-                <h3 className="section-subtitle">JCLL Photography</h3>
+                <h3 className="section-subtitle">{t.subtitle}</h3>
                 <div className="grid">
                     {works.map((work) => (
                         <motion.div
@@ -50,7 +45,15 @@ const Work = () => {
                             className="grid-item"
                             variants={itemVariants}
                             layoutId={`container-${work.id}`}
+                            role="button"
+                            tabIndex={0}
                             onClick={() => setSelectedId(work.id)}
+                            onKeyDown={(e) => {
+                                if (e.key === 'Enter' || e.key === ' ') {
+                                    e.preventDefault();
+                                    setSelectedId(work.id);
+                                }
+                            }}
                         >
                             <div className="image-container">
                                 <motion.img
